@@ -12,7 +12,7 @@ mongoose.connect(
     .catch((error) => console.log("Erro ao concetar no banco", error));
 
 
-app.use('/user', userRouter)
+app.use('/user', express.json(), userRouter)
 
 app.listen(process.env.PORT, () => { console.log(`Server Running in http://localhost:${process.env.PORT}`) })
 
