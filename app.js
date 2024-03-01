@@ -5,9 +5,7 @@ const userRouter = require('./routes/userRouter')
 const mongoose = require('mongoose')
 
 mongoose.connect(
-    process.env.MONGO_URL,
-    { useNewUrlParser: true },
-    { useUnifiedTopology: true })
+    process.env.MONGO_URL,)
     .then(() => console.log("Conectado!"))
     .catch((error) => console.log("Erro ao concetar no banco", error));
 
