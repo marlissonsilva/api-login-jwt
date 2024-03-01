@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-// a funçao esta funcionando como um middleware(inetermediario)
+// a funçao esta funcionando como um middleware(intermediario)
 module.exports = function (req, res, next) {
     const token = req.header('authorization-token')
     if (!token) { return res.status(401).send('Access Denied') }
