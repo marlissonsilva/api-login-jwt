@@ -1,12 +1,12 @@
-const User = require('../models/User')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { loginValidate, registerValidate } = require('./validate')
+import User from '../models/User.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import Validate from './validate.js'
 
 const userController = {
     register: async (req, res) => {
 
-        const { error } = registerValidate(req.body)
+        const { error } = Validate.registerValidate(req.body)
         if (error) { return res.status(400).send(error) }
 
         const selectedUser = await User.findOne({ email: req.body.email })
@@ -24,8 +24,9 @@ const userController = {
             res.status(400).send(error)
         }
     },
+    
     login: async (req, res) => {
-        const { error } = loginValidate(req.body)
+        const { error } = Validate.loginValidate(req.body)
         if (error) { return res.status(400).send(error) }
 
         const selectedUser = await User.findOne({ email: req.body.email })
@@ -37,10 +38,11 @@ const userController = {
         const token = jwt.sign({ _id: selectedUser._id, admin: selectedUser.admin }, process.env.TOKEN_SECRET)
         console.log({ _id: selectedUser._id, admin: selectedUser.admin })
         // enviando token para o usuário/ front end
+        console.log('authorization-token', token)
         res.header('authorization-token', token)
         res.send('Usuário logado!')
     }
 }
 
 
-module.exports = userController
+export default userController

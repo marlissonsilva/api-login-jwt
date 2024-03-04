@@ -1,9 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const auth = require('../controllers/authController')
+import { Router } from 'express'
+import auth from '../controllers/authController.js'
+const router = Router()
 
 router.get('/', auth, (req, res) => {
-    console.log(req.user)
     if (req.user.admin) {
         res.send('Bem vindo a pagina de Admin')
         return
@@ -12,4 +11,4 @@ router.get('/', auth, (req, res) => {
     res.send('Not Admin: Access Denied')
 
 })
-module.exports = router
+export default router

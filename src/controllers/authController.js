@@ -1,15 +1,18 @@
-const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken'
 
 // a funçao esta funcionando como um middleware(intermediario)
-module.exports = function (req, res, next) {
+const auth = (req, res, next) => {
     const token = req.header('authorization-token')
-    if (!token) { return res.status(401).send('Access Denied') }
+    if (!token) { return res.send('Access Denied') }
 
     try {
         const userVerified = jwt.verify(token, process.env.TOKEN_SECRET)
         req.user = userVerified
+        console.log(userVerified)
         next()
     } catch (error) {
-        return res.status(401).send('Access Denied', error)
+        return res.send('Access Denied', error)
     }
-} 
+}
+
+export default auth

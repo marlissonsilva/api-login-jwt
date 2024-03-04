@@ -1,5 +1,7 @@
-const Joi = require('joi')
+import Joi from 'joi'
+
 const registerValidate = (data) => {
+
 
     const schema = Joi.object({
         name: Joi.string().required().min(3).max(50),
@@ -21,6 +23,6 @@ const loginValidate = (data) => {
 }
 
 
-module.exports = { loginValidate, registerValidate }
+export default { loginValidate, registerValidate }
 
 
